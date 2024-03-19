@@ -11,22 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('username');
-            $table->unsignedBigInteger('role_id');
+        Schema::create('group_course', function (Blueprint $table) {
             $table->unsignedBigInteger('group_id');
-            $table->foreign('role_id')->references('id')->on('roles');
+            $table->string('course_key');
             $table->foreign('group_id')->references('id')->on('groups');
+            $table->foreign('course_key')->references('course_key')->on('courses');
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('group_course');
     }
 };
